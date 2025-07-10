@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z-Alarm: Der Ausbruch beginnt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>⚠️ Pandora Warnmeldung</h1>
+    <p>Bewahren Sie Ruhe und informieren Sie sich hier über aktuelle Anweisungen.</p>
+  </header>
+  <div id="live-ticker">
+  🧠 Neu Infizierte <span id="infected-count">128</span>
+</div>
+
+  <section>
+    <div id="countdown">
+      Wartezeit bis zur nächsten Kohorten-Evakuierung: <span id="timer">00:10:00</span>
+    </div>
+
+    <div id="group-message" style="margin-top:20px; font-size:1.2em;"></div>
+
+    <div id="extra-alerts">
+  <h2>Aktuelle Meldungen:</h2>
+  <ul id="special-messages"></ul>
+</div>
+
+    <button id="hotline-button">📞 Hilfe-Hotline anrufen</button>
+    <audio id="busy-sound" src="busy-sound.mp3" preload="auto"></audio>
+
+    <button id="info-button">🦠 Infektionsanzeichen</button>
+
+    <div id="popup" class="hidden">
+      <h3>Verdächtige Symptome:</h3>
+      <ul>
+        <li>⚠️ Leichtes Zittern trotz Wärme</li>
+        <li>🧠 Verlangsamte Sprache & starrer Blick</li>
+        <li>🩸 Blässe oder blutunterlaufene Augen</li>
+        <li>🥩 Starker Hunger</li>
+        <li>🤢 Starke Übelkeit</li>
+      </ul>
+      <button id="close-popup">Fenster schließen</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

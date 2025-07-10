@@ -1,0 +1,203 @@
+/* Hintergrund und allgemeines Layout */
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url("zombie-hintergrund.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fdfafa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header – Warnbanner oben */
+header {
+  background-color: #cde60c;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+  color: #fc1404;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #000000; /* Schwarzer Text wie gewünscht */
+}
+
+/* Hauptinhalt */
+section {
+  padding: 20px;
+}
+
+/* Countdown-Box */
+#countdown {
+  background-color: #222;
+  padding: 15px;
+  border: 2px solid #ff0000;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+#live-ticker {
+  background-color: #440000;
+  color: #ffdddd;
+  padding: 12px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid #ff4444;
+}
+
+/* Meldungsbereich */
+#alert-feed ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+#extra-alerts {
+  background-color: #220000;
+  color: #ffdddd;
+  padding: 15px;
+  border-top: 2px solid #ff4444;
+  margin-top: 20px;
+}
+
+#extra-alerts h2 {
+  margin-top: 0;
+  color: #ff6666;
+}
+
+#special-messages li {
+  background-color: #440000;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-left: 5px solid #ff4444;
+  list-style: none;
+  animation: blink 1s ease-in-out;
+}
+
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+#alert-feed li {
+  background-color: #333;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-left: 5px solid #ff0000;
+}
+
+/* Hotline-Button */
+#hotline-button {
+  background-color: #b00000;
+  color: #fff;
+  border: none;
+  padding: 15px 25px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+#hotline-button:hover {
+  background-color: #ff4444;
+}
+
+/* Infektions-Button */
+#info-button {
+  background-color: #cde60c;
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  margin-top: 15px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+#info-button:hover {
+  background-color: #ffff33;
+}
+
+/* Popup-Fenster */
+#popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #111;
+  color: #fff;
+  padding: 20px;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 300px;
+  display: none;
+}
+
+#popup h3 {
+  margin-top: 0;
+  color: #ff4444;
+}
+
+#close-popup {
+  background-color: #cde60c;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+#close-popup:hover {
+  background-color: #ffff33;
+}
+
+/* Utility-Klasse */
+.hidden {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  header h1 {
+    font-size: 1.5em;
+  }
+
+  header p {
+    font-size: 0.9em;
+  }
+
+  section {
+    padding: 10px;
+  }
+
+  #countdown {
+    font-size: 1em;
+  }
+
+  #alert-feed li {
+    font-size: 0.95em;
+    padding: 8px;
+  }
+
+  #popup {
+    width: 90%;
+    top: 10%;
+  }
+
+  #hotline-button,
+  #info-button,
+  #close-popup {
+    font-size: 1em;
+    padding: 12px 18px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+}
