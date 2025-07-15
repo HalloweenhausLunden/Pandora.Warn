@@ -1,37 +1,64 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-image: url("zombie-hintergrund.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #f4f4f4;
-}
-/* Basis-Design für Desktop & Mobile */
+/* 🌌 Grundlayout */
 body {
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", sans-serif;
   background-color: #222;
-  color: #f4f4f4;
+  background-image: url("zombie-hintergrund.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #cde60c;
   line-height: 1.6;
 }
 
+/* 📢 Strukturblöcke */
 header, main, section {
   padding: 20px;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5); /* transparenter dunkler Hintergrund */
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   color: #fff;
 }
 
+/* ⚠️ Titel */
 header h1 {
   font-size: 2.2em;
   margin-bottom: 10px;
   color: #cde60c;
 }
 
+/* 🧠 Live-Ticker */
+#live-ticker {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: #cde60c;
+  font-size: 2em;
+  text-align: center;
+  width: fit-content;
+  margin: 20px auto;
+  display: block;
+}
+
+/* ⏱️ Countdown */
+#timer {
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #cde60c;
+}
+
+/* 📣 Sondermeldungen */
+#special-messages li {
+  background-color: #333;
+  margin: 8px auto;
+  padding: 8px 12px;
+  border-left: 5px solid #cde60c;
+  list-style: none;
+}
+
+/* 🎯 Buttons */
 button {
   background-color: #cde60c;
   border: none;
@@ -42,7 +69,7 @@ button {
   color: #000;
   cursor: pointer;
   margin-top: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
   transition: transform 0.2s ease;
 }
 
@@ -50,36 +77,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* QR-Bild */
-img {
-  max-width: 100%;
-  height: auto;
-  margin-top: 20px;
-}
-
-/* Countdown- und Ticker-Bereich */
-#timer {
-  font-size: 2.2em;
-  color: #ff4444;
-  font-weight: bold;
-  margin-top: 15px;
-}
-
-#infected-count {
-  font-size: 2em;
-  color: #ff8800;
-  margin-top: 10px;
-}
-
-#special-messages li {
-  background-color: #333;
-  margin: 8px auto;
-  padding: 8px 12px;
-  border-left: 5px solid #cde60c;
-  list-style: none;
-}
-
-/* Popups */
+/* 🧪 Popup für Symptome */
 #popup {
   position: fixed;
   top: 20%;
@@ -93,7 +91,7 @@ img {
   border-radius: 8px;
   display: none;
   z-index: 999;
-  color: #fff;
+  color: #cde60c;
 }
 
 #close-popup {
@@ -102,7 +100,37 @@ img {
   color: #fff;
 }
 
-/* 🧪 Mobile-Optimierung */
+/* 🧠 Popup für Kohorte */
+#popup-kohorte {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #cde60c;
+  z-index: 1000;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  display: none;
+}
+
+#popup-kohorte button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #cde60c;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 📱 Mobile-Optimierung */
 @media only screen and (max-width: 600px) {
   body {
     font-size: 16px;
@@ -123,9 +151,9 @@ img {
     box-sizing: border-box;
   }
 
-  #popup {
+  #popup, #popup-kohorte {
     top: 10%;
-    width: 90%;
+    width: 95%;
     font-size: 0.95em;
   }
 

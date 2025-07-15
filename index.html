@@ -11,9 +11,16 @@
     <h1>⚠️ Pandora Warnmeldung</h1>
     <p>Bewahren Sie Ruhe und informieren Sie sich hier über aktuelle Anweisungen.</p>
   </header>
+
   <div id="live-ticker">
-  🧠 Neu Infizierte <span id="infected-count">128</span>
-</div>
+    🧠 Neu Infizierte <span id="infected-count">128</span>
+  </div>
+
+  <!-- Kohorten-Popup -->
+  <div id="popup-kohorte" style="display: none;">
+    <p>Bitte bilden Sie eine Kohorte mit 5 Personen!</p>
+    <button onclick="closePopup()">Verstanden</button>
+  </div>
 
   <section>
     <div id="countdown">
@@ -23,12 +30,13 @@
     <div id="group-message" style="margin-top:20px; font-size:1.2em;"></div>
 
     <div id="extra-alerts">
-  <h2>Aktuelle Meldungen:</h2>
-  <ul id="special-messages"></ul>
-</div>
+      <h2>Aktuelle Meldungen:</h2>
+      <ul id="special-messages"></ul>
+    </div>
 
     <button id="hotline-button">📞 Hilfe-Hotline anrufen</button>
     <audio id="busy-sound" src="busy-sound.mp3" preload="auto"></audio>
+    <audio id="alert-sound" src="alert-signal.mp3" preload="auto"></audio>
 
     <button id="info-button">🦠 Infektionsanzeichen</button>
 
@@ -45,6 +53,44 @@
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <!-- Komplettes Skript -->
+  <script>
+    // Funktionen zum Öffnen und Schließen des Kohorten-Popups
+    function showPopup() {
+      document.getElementById("popup-kohorte").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popup-kohorte").style.display = "none";
+    }
+
+    // Popup beim Seitenladen anzeigen + alle 5 Minuten
+    document.addEventListener("DOMContentLoaded", function () {
+      showPopup(); // sofort anzeigen
+      setInterval(showPopup, 300000); // alle 5 Minuten wiederholen
+    });
+
+    // Countdown ab 16:00 Uhr, alle 10 Minuten synchronisiert
+    function updateCountdown() {
+      const timerElement = document.getElementById("timer");
+      const now = new Date();
+      const start = new Date();
+      start.setHours(16, 0, 0, 0); // Startzeit: 16:00:00
+
+      if (now < start) {
+        timerElement.textContent = "⏳ Noch nicht gestartet";
+        return;
+      }
+
+      const elapsed = Math.floor((now - start) / 1000); // Sekunden seit Start
+      const remainder = 600 - (elapsed % 600); // 10min = 600 Sekunden
+      const minutes = Math.floor(remainder / 60);
+      const seconds = remainder % 60;
+
+      timerElement.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }
+
+    setInterval(updateCountdown, 1000); // jede Sekunde aktualisieren
+  </script>
 </body>
 </html>
