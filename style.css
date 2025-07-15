@@ -1,3 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("zombie-hintergrund.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #f4f4f4;
+}
 /* Basis-Design für Desktop & Mobile */
 body {
   margin: 0;
