@@ -91,7 +91,42 @@
     }
 
     setInterval(updateCountdown, 1000); // jede Sekunde aktualisieren
+    // 📞 Hotline-Button: Sound + Meldung
+document.addEventListener("DOMContentLoaded", function () {
+  const hotlineButton = document.getElementById("hotline-button");
+  if (hotlineButton) {
+    hotlineButton.addEventListener("click", function () {
+      const sound = document.getElementById("busy-sound");
+      if (sound) sound.play();
+
+      const messageBox = document.getElementById("group-message");
+      if (messageBox) {
+        messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
+      }
+    });
+  }
+
+  // 🦠 Infektionsanzeichen-Button: Popup anzeigen + Sound
+  const infoButton = document.getElementById("info-button");
+  const symptomPopup = document.getElementById("popup");
+  const closePopupButton = document.getElementById("close-popup");
+
+  if (infoButton && symptomPopup) {
+    infoButton.addEventListener("click", function () {
+      symptomPopup.classList.remove("hidden");
+      const alertSound = document.getElementById("alert-sound");
+      if (alertSound) alertSound.play();
+    });
+  }
+
+  if (closePopupButton && symptomPopup) {
+    closePopupButton.addEventListener("click", function () {
+      symptomPopup.classList.add("hidden");
+    });
+  }
+});
   </script>
 </body>
 
 </html>
+
