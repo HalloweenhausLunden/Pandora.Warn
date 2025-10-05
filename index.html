@@ -1,70 +1,182 @@
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // 📣 Kohorten-Popup beim Laden + alle 5 Minuten
-    function showPopup() {
-      document.getElementById("popup-kohorte").style.display = "block";
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Z-Alarm: Der Ausbruch beginnt</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #222;
+      color: #cde60c;
+      line-height: 1.6;
+      text-align: center;
     }
 
-    function closePopup() {
-      document.getElementById("popup-kohorte").style.display = "none";
+    header, section {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      margin: 20px;
     }
 
-    showPopup();
-    setInterval(showPopup, 300000);
+    button {
+      background-color: #cde60c;
+      border: none;
+      border-radius: 6px;
+      padding: 14px 24px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      margin-top: 20px;
+    }
 
-    // 📞 Hotline-Button
-    const hotlineButton = document.getElementById("hotline-button");
-    if (hotlineButton) {
-      hotlineButton.addEventListener("click", function () {
-        const sound = document.getElementById("busy-sound");
-        if (sound) sound.play();
+    #timer {
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 15px;
+    }
 
-        const messageBox = document.getElementById("group-message");
-        if (messageBox) {
-          messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
+    #group-message {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #popup, #popup-kohorte {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 400px;
+      background-color: #444;
+      padding: 20px;
+      border: 2px solid #cde60c;
+      border-radius: 8px;
+      z-index: 999;
+      color: #cde60c;
+    }
+
+    #popup.hidden, #popup-kohorte.hidden {
+      display: none;
+    }
+
+    #close-popup, #close-kohorte {
+      margin-top: 10px;
+      background-color: #ff4444;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⚠️ Pandora Warnmeldung</h1>
+    <p>Bewahren Sie Ruhe und informieren Sie sich hier über aktuelle Anweisungen.</p>
+  </header>
+
+  <section>
+    <div>Wartezeit bis zur nächsten Kohorten-Evakuierung: <span id="timer">00:10:00</span></div>
+
+    <div id="group-message"></div>
+
+    <button id="hotline-button">📞 Hilfe-Hotline anrufen</button>
+    <audio id="busy-sound" src="busy-sound.mp3" preload="auto"></audio>
+    <audio id="alert-sound" src="alert-signal.mp3" preload="auto"></audio>
+
+    <button id="info-button">🦠 Infektionsanzeichen</button>
+  </section>
+
+  <!-- Popup für Symptome -->
+  <div id="popup" class="hidden">
+    <h3>Verdächtige Symptome:</h3>
+    <ul>
+      <li>⚠️ Leichtes Zittern trotz Wärme</li>
+      <li>🧠 Verlangsamte Sprache & starrer Blick</li>
+      <li>🩸 Blässe oder blutunterlaufene Augen</li>
+      <li>🥩 Starker Hunger</li>
+      <li>🤢 Starke Übelkeit</li>
+    </ul>
+    <button id="close-popup">Fenster schließen</button>
+  </div>
+
+  <!-- Popup für Kohorte -->
+  <div id="popup-kohorte" class="hidden">
+    <p>Bitte bilden Sie eine Kohorte mit 5 Personen!</p>
+    <button id="close-kohorte">Verstanden</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // ⏱️ Countdown ab 16:00 Uhr
+      function updateCountdown() {
+        const timerElement = document.getElementById("timer");
+        const now = new Date();
+        const start = new Date();
+        start.setHours(16, 0, 0, 0);
+
+        if (now < start) {
+          timerElement.textContent = "⏳ Noch nicht gestartet";
+          return;
         }
-      });
-    }
 
-    // 🦠 Infektionsanzeichen-Button
-    const infoButton = document.getElementById("info-button");
-    const symptomPopup = document.getElementById("popup");
-    const closePopupButton = document.getElementById("close-popup");
+        const elapsed = Math.floor((now - start) / 1000);
+        const remainder = 600 - (elapsed % 600);
+        const minutes = Math.floor(remainder / 60);
+        const seconds = remainder % 60;
 
-    if (infoButton && symptomPopup) {
-      infoButton.addEventListener("click", function () {
-        symptomPopup.classList.remove("hidden");
-        const alertSound = document.getElementById("alert-sound");
-        if (alertSound) alertSound.play();
-      });
-    }
-
-    if (closePopupButton && symptomPopup) {
-      closePopupButton.addEventListener("click", function () {
-        symptomPopup.classList.add("hidden");
-      });
-    }
-
-    // ⏱️ Countdown ab 16:00 Uhr, alle 10 Minuten synchronisiert
-    function updateCountdown() {
-      const timerElement = document.getElementById("timer");
-      const now = new Date();
-      const start = new Date();
-      start.setHours(16, 0, 0, 0);
-
-      if (now < start) {
-        timerElement.textContent = "⏳ Noch nicht gestartet";
-        return;
+        timerElement.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       }
 
-      const elapsed = Math.floor((now - start) / 1000);
-      const remainder = 600 - (elapsed % 600);
-      const minutes = Math.floor(remainder / 60);
-      const seconds = remainder % 60;
+      setInterval(updateCountdown, 1000);
 
-      timerElement.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    }
+      // 📞 Hotline-Button
+      const hotlineButton = document.getElementById("hotline-button");
+      hotlineButton.addEventListener("click", function () {
+        document.getElementById("busy-sound").play();
+        document.getElementById("group-message").textContent =
+          "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
+      });
 
-    setInterval(updateCountdown, 1000);
-  });
-</script>
+      // 🦠 Infektionsanzeichen-Button
+      const infoButton = document.getElementById("info-button");
+      const popup = document.getElementById("popup");
+      const closePopup = document.getElementById("close-popup");
+
+      infoButton.addEventListener("click", function () {
+        popup.classList.remove("hidden");
+        document.getElementById("alert-sound").play();
+      });
+
+      closePopup.addEventListener("click", function () {
+        popup.classList.add("hidden");
+      });
+
+      // 📣 Kohorten-Popup beim Laden + alle 5 Minuten
+      const kohortePopup = document.getElementById("popup-kohorte");
+      const closeKohorte = document.getElementById("close-kohorte");
+
+      function showKohortePopup() {
+        kohortePopup.classList.remove("hidden");
+      }
+
+      showKohortePopup();
+      setInterval(showKohortePopup, 300000);
+
+      closeKohorte.addEventListener("click", function () {
+        kohortePopup.classList.add("hidden");
+      });
+    });
+  </script>
+</body>
+</html>
