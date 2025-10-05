@@ -168,4 +168,8 @@ button:hover {
   #special-messages li {
     font-size: 0.95em;
   }
+
+}
+.hidden {
+  display: none;
 }
