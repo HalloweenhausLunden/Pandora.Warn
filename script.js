@@ -40,11 +40,10 @@ function updateCountdown() {
 
 setInterval(updateCountdown, 1000);
 document.getElementById("hotline-button").addEventListener("click", function () {
-  // Sound abspielen
   const sound = document.getElementById("busy-sound");
   sound.play();
 
-  // Meldung anzeigen
   const messageBox = document.getElementById("group-message");
   messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
 });
+
