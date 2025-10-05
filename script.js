@@ -46,4 +46,18 @@ document.getElementById("hotline-button").addEventListener("click", function () 
   const messageBox = document.getElementById("group-message");
   messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const hotlineButton = document.getElementById("hotline-button");
+  if (hotlineButton) {
+    hotlineButton.addEventListener("click", function () {
+      const sound = document.getElementById("busy-sound");
+      if (sound) sound.play();
+
+      const messageBox = document.getElementById("group-message");
+      if (messageBox) {
+        messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
+      }
+    });
+  }
+});
 
