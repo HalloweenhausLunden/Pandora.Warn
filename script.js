@@ -1,23 +1,39 @@
 // 📣 Kohorten-Popup Funktionen
 function showPopup() {
   const popup = document.getElementById("popup-kohorte");
-  popup.style.display = "block";
+  if (popup) popup.style.display = "block";
 }
 
 function closePopup() {
   const popup = document.getElementById("popup-kohorte");
-  popup.style.display = "none";
+  if (popup) popup.style.display = "none";
 }
 
 // 🧠 Popup anzeigen beim Seitenstart + alle 5 Minuten
 document.addEventListener("DOMContentLoaded", function () {
   showPopup(); // Sofort beim Laden
   setInterval(showPopup, 300000); // Alle 300.000ms = 5 Minuten erneut
+
+  // 📞 Hotline-Button aktivieren
+  const hotlineButton = document.getElementById("hotline-button");
+  if (hotlineButton) {
+    hotlineButton.addEventListener("click", function () {
+      const sound = document.getElementById("busy-sound");
+      if (sound) sound.play();
+
+      const messageBox = document.getElementById("group-message");
+      if (messageBox) {
+        messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
+      }
+    });
+  }
 });
 
 // ⏱️ Synchronisierter Countdown ab 16:00 Uhr, alle 10 Minuten
 function updateCountdown() {
   const timerElement = document.getElementById("timer");
+  if (!timerElement) return;
+
   const now = new Date();
   const start = new Date();
   start.setHours(16, 0, 0, 0); // Startzeit: 16:00 Uhr
@@ -37,27 +53,5 @@ function updateCountdown() {
 }
 
 // ⏱️ Countdown jede Sekunde aktualisieren
-
 setInterval(updateCountdown, 1000);
-document.getElementById("hotline-button").addEventListener("click", function () {
-  const sound = document.getElementById("busy-sound");
-  sound.play();
-
-  const messageBox = document.getElementById("group-message");
-  messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
-});
-document.addEventListener("DOMContentLoaded", function () {
-  const hotlineButton = document.getElementById("hotline-button");
-  if (hotlineButton) {
-    hotlineButton.addEventListener("click", function () {
-      const sound = document.getElementById("busy-sound");
-      if (sound) sound.play();
-
-      const messageBox = document.getElementById("group-message");
-      if (messageBox) {
-        messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
-      }
-    });
-  }
-});
 
