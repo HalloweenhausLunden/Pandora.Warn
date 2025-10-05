@@ -15,16 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(showPopup, 300000); // Alle 300.000ms = 5 Minuten erneut
 
   // 📞 Hotline-Button aktivieren
-  const hotlineButton = document.getElementById("hotline-button");
-  if (hotlineButton) {
-    hotlineButton.addEventListener("click", function () {
-      const sound = document.getElementById("busy-sound");
-      if (sound) sound.play();
+const hotlineButton = document.getElementById("hotline-button");
+const hotlinePopup = document.getElementById("popup-hotline");
+const closeHotline = document.getElementById("close-hotline");
 
-      const messageBox = document.getElementById("group-message");
-      if (messageBox) {
-        messageBox.textContent = "📡 Zur Zeit sind alle Leitungen belegt, bitte versuchen Sie es später noch mal.";
-      }
+if (hotlineButton && hotlinePopup) {
+  hotlineButton.addEventListener("click", function () {
+    document.getElementById("busy-sound").play();
+    hotlinePopup.classList.remove("hidden");
+  });
+}
+
+if (closeHotline && hotlinePopup) {
+  closeHotline.addEventListener("click", function () {
+    hotlinePopup.classList.add("hidden");
+  });
+}
     });
   }
 });
@@ -54,4 +60,5 @@ function updateCountdown() {
 
 // ⏱️ Countdown jede Sekunde aktualisieren
 setInterval(updateCountdown, 1000);
+
 
